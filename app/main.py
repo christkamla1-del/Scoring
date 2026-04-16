@@ -1,9 +1,19 @@
 from fastapi import FastAPI
 from app.config import settings
 from app.database import engine, Base
-from app.models import User, Client, Loan, Repayment, Blacklist
+from app.models import (
+    User,
+    Client,
+    Usage,
+    HistoriquePaiement,
+    Demande,
+    ScoreRisque,
+    Quotite,
+    Blacklist,
+)
+from app.routers.auth import router as auth_router
+from app.routers.scoring import router as scoring_router
 
-# Crée toutes les tables au démarrage
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -13,10 +23,13 @@ app = FastAPI(
     redoc_url="/redoc",
 )
 
+app.include_router(auth_router)
+app.include_router(scoring_router)
+
 
 @app.get("/")
 def root():
-    return {"message": f"Bienvenue sur Test {settings.app_name}"}
+    return {"message": f"Bienvenue sur {settings.app_name}"}
 
 
 @app.get("/health")
