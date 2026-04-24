@@ -94,10 +94,10 @@ def calculer_quotite(prob_poor: float) -> tuple[float, str]:
 
 def generer_explication(categorie: str, prob_poor: float) -> str:
     explications = {
-        "faible": f"Client fiable avec {prob_poor:.0%} de risque de défaut. Financement recommandé.",
-        "moyen": f"Client avec risque modéré ({prob_poor:.0%}). Financement partiel conseillé.",
-        "eleve": f"Client à risque élevé ({prob_poor:.0%}). Financement limité recommandé.",
-        "critique": f"Client très risqué ({prob_poor:.0%}). Financement déconseillé.",
+        "faible": f"Client fiable avec {prob_poor:.0%} de risque de defaut. Financement recommande.",
+        "moyen": f"Client avec risque modere ({prob_poor:.0%}). Financement partiel conseille.",
+        "eleve": f"Client a risque eleve ({prob_poor:.0%}). Financement limite recommande.",
+        "critique": f"Client tres risque ({prob_poor:.0%}). Financement deconseille.",
     }
     return explications.get(categorie, "Analyse non disponible.")
 
@@ -112,8 +112,6 @@ def predire_score(client: ClientScoringInput) -> ScoringResult:
     df = df[features]
 
     probabilites = modele.predict_proba(df)[0]
-    classe_predite = modele.predict(df)[0]
-
     prob_poor = float(probabilites[2])
     score_normalise = round(float(prob_poor), 4)
 

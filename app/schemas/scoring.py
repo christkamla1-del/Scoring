@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 from typing import Optional
-from app.models.score_risque import CategorieRisque
 
 
 class ClientScoringInput(BaseModel):
@@ -32,7 +31,7 @@ class ScoringResult(BaseModel):
     probabilite_defaut: float
     categorie_risque: str
     quotite_recommandee: float
-    montant_finançable: Optional[float] = None
+    montant_financable: Optional[float] = None
     explication: str
 
 

@@ -15,13 +15,9 @@ def predire(
     db: Session = Depends(get_db),
     current_user: User = Depends(require_agent_ou_admin),
 ):
-    """
-    Prédit le score de risque d'un client et calcule la quotité recommandée.
-    Accessible aux agents et admins.
-    """
     try:
         result = predire_score(demande.client_input)
-        result.montant_finançable = round(
+        result.montant_financable = round(
             demande.prix_telephone * result.quotite_recommandee, 2
         )
         return result
@@ -33,10 +29,6 @@ def predire(
 def predire_rapide(
     client: ClientScoringInput, current_user: User = Depends(require_agent_ou_admin)
 ):
-    """
-    Prédit uniquement le score sans créer de demande.
-    Utile pour tester rapidement un profil client.
-    """
     try:
         return predire_score(client)
     except Exception as e:
